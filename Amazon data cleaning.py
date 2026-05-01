@@ -1,0 +1,13 @@
+import pandas as pd
+df=pd.read_csv("amazon.csv")
+df["discounted_price"]=df["discounted_price"].str.replace("₹","").str.replace(",","")
+df["discounted_price"]=pd.to_numeric(df["discounted_price"],errors="coerce")
+df["actual_price"]=df["actual_price"].str.replace("₹","").str.replace(",","")
+df["actual_price"]=pd.to_numeric(df["actual_price"],errors="coerce")
+df["discount_percentage"]=df["discount_percentage"].str.replace("%","").str.replace(",","")
+df["discount_percentage"]=pd.to_numeric(df["discount_percentage"],errors="coerce")
+df["rating_count"] = df["rating_count"].str.replace(",", "")
+df["rating"]=pd.to_numeric(df["rating"],errors="coerce")
+print(df[["product_name","discounted_price","actual_price","discount_percentage","rating"]].head())
+df.to_csv("amazon_cleaned.csv",index=False)
+print("clean data saved!")
